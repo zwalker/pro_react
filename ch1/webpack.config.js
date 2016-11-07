@@ -1,4 +1,5 @@
 module.exports = {
+  devtool: 'eval-source-map',
   entry: [
     './source/App.js',
   ],
@@ -9,7 +10,10 @@ module.exports = {
   module: {
     loaders: [{
       test: /\.jsx?$/,
-      loader: 'babel'
+      loader: 'babel',
+      query: {
+        presets: ['es2015', 'react']
+      }
     }]
-  }
+  },
 };
