@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDom from 'react-dom';
 import KanbanBoard from './KanbanBoard';
 
 let cardsList = [
