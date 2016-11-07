@@ -27,6 +27,7 @@ class Card extends React.Component {
 
     return (
       <div className='card'>
+        <div className='card__sidebar' style={{backgroundColor: this.props.color}} />
         <div className={this.state.showDetails ? 'card__title--is-open' : 'card__title'} onClick={this.toggleState.bind(this)}>
           {this.props.title}
         </div>

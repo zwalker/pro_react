@@ -80,6 +80,15 @@ ul {
   content: '\25bc';
 }
 
+.card__sidebar {
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 7px;
+}
+
 .checklist__task:first-child {
   margin-top: 10px;
   padding-top: 10px;
