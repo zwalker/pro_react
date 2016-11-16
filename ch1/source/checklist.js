@@ -2,7 +2,6 @@ import React from 'react';
 
 class CheckList extends React.Component {
   render() {
-    console.log(this.props.tasks);
     let tasks = this.props.tasks.map((task) => (
       <li key={task.id} className='checklist__task'>
         <input type='checkbox' defaultChecked={task.done} />
@@ -11,7 +10,6 @@ class CheckList extends React.Component {
       </li>
     ));
 
-    console.log(tasks);
     return (
       <div className='checklist'>
         <ul>{tasks}</ul>
