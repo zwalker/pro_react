@@ -95,7 +95,7 @@ ul {
   border-top: dashed 1px #ddd;
 }
 
-.chceklist__task--remove:after {
+.checklist__task--remove:after {
   display: inline-block;
   color: #d66;
   content: "+";
