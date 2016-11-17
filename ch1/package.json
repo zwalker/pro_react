@@ -17,6 +17,7 @@
   "dependencies": {
     "marked": "^0.3.6",
     "react": "^15.3.2",
-    "react-dom": "^15.3.2"
+    "react-dom": "^15.3.2",
+    "whatwg-fetch": "^2.0.0"
   }
 }
