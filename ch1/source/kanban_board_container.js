@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import KanbanBoard from './KanbanBoard';
 import 'whatwg-fetch';
+import update from 'react-addons-update';
 
 const API_URL = 'http://kanbanapi.pro-react.com';
 const API_HEADERS = {
@@ -31,6 +32,21 @@ class KanbanBoardContainer extends Component {
   }
 
   deleteTask(cardId, taskId, taskIndex){
+    let cardIndex = this.state.cards.findIndex((card) => card.id == cardId);
+
+    console.log(cardIndex);
+    console.log(cardId);
+    console.log(taskId);
+    console.log(taskIndex);
+    // Create a new object without a task
+    let nextState = update(this.state.cards, {
+      [cardIndex]: {
+        tasks: {$splice: [[taskIndex, 1]]}
+      }
+    });
+
+    // set the component state to the mutate state
+    this.setState({cards: nextState});
   }
 
   toggleTask(cardId, taskId, taskIndex){
