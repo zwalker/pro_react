@@ -1,8 +1,19 @@
-import React from 'react';
+import React, { Component, PropTypes } from 'react';
 import CheckList from './checklist.js';
 import marked from 'marked';
 
-class Card extends React.Component {
+let titlePropType = (props, propName, componentName) => {
+  if(props[propName]) {
+    let value = props[propName];
+    if(typeof value !== 'string' || value.length > 80) {
+      return new Error(
+        `${propName} in ${componentName} is longer than 80 charachters`
+      );
+    }
+  }
+}
+
+class Card extends Component {
   constructor() {
     super(...arguments);
     this.state = {
@@ -35,6 +46,14 @@ class Card extends React.Component {
       </div>
     );
   }
+}
+
+Card.propTypes = {
+  id: PropTypes.number.isRequired,
+  title: titlePropType,
+  description: PropTypes.string.isRequired,
+  tasks: PropTypes.arrayOf(PropTypes.object),
+  color: PropTypes.string
 }
 
 export default Card;

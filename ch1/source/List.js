@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { Component, PropTypes } from 'react';
 import Card from './card.js';
 
-class List extends React.Component {
+class List extends Component {
   render() {
     var cards = this.props.cards.map((card) => {
       return <Card key={card.id}
@@ -19,6 +19,11 @@ class List extends React.Component {
       </div>
     );
   }
+}
+
+List.propTypes = {
+  title: PropTypes.string.isRequired,
+  cards: PropTypes.arrayOf(PropTypes.object)
 }
 
 export default List;
