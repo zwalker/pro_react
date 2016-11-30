@@ -128,6 +128,37 @@ class KanbanBoardContainer extends Component {
     });
   }
 
+  updateCardStatus(cardId, listId) {
+    let cardIndex = this.state.cards.findIndex((card) => card.id == cardId);
+    let card = this.state.cards[cardIndex];
+    if (card.status !== listId) {
+      this.setState(update(this.state, {
+        cards: {
+          [cardIndex]: {
+            status: { $set: listId }
+          }
+        }
+      }));
+    }
+  }
+
+  updateCardPosition(cardId, afterId) {
+    if(cardId !== afterId) {
+      let cardIndex = this.state.cards.findIndex((card) => card.id == cardId);
+      let card = this.state.cards[cardIndex];
+      let afterIndex = this.state.cards.findIndec((card) => card.id == afterId);
+
+      this.setState(update(this.state, {
+        cards: {
+          $splice: [
+            [cardIndex, 1],
+            [afterIndex, 0, card]
+          ]
+        }
+      }));
+    }
+  }
+
   render() {
     return <KanbanBoard 
       cards={this.state.cards}
@@ -138,6 +169,12 @@ class KanbanBoardContainer extends Component {
           add: this.addTask.bind(this)
         }
       } 
+    cardCallbacks={
+      {
+        updateStatus: this.updateCardStatus.bind(this),
+        updatePosition: this.updateCardPosition.bind(this)
+      }
+    }
     />
   }
 }
