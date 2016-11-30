@@ -146,7 +146,7 @@ class KanbanBoardContainer extends Component {
     if(cardId !== afterId) {
       let cardIndex = this.state.cards.findIndex((card) => card.id == cardId);
       let card = this.state.cards[cardIndex];
-      let afterIndex = this.state.cards.findIndec((card) => card.id == afterId);
+      let afterIndex = this.state.cards.findIndex((card) => card.id == afterId);
 
       this.setState(update(this.state, {
         cards: {
