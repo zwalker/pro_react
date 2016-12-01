@@ -19,8 +19,13 @@ let titlePropType = (props, propName, componentName) => {
 const cardDragSpec = {
   beginDrag(props) {
     return {
-      id: props.id
+      id: props.id,
+      status: props.status
     };
+  },
+
+  endDrag(props) {
+    props.cardCallbacks.persistCardDrag(props.id, props.status);
   }
 }
 
@@ -86,6 +91,7 @@ class Card extends Component {
 
 Card.propTypes = {
   id: PropTypes.number.isRequired,
+  status: PropTypes.string.isRequired,
   title: titlePropType,
   description: PropTypes.string.isRequired,
   tasks: PropTypes.arrayOf(PropTypes.object),
