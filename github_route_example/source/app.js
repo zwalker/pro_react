@@ -6,6 +6,7 @@ import { Router, Route, IndexRoute, Link } from 'react-router';
 import About from './about';
 import Home from './home';
 import Repos from './repos';
+import RepoDetails from './repo_details';
 
 class App extends Component {
   constructor() {
@@ -44,7 +45,9 @@ ReactDom.render((
     <Route path='/' component={App}>
       <IndexRoute component={Home}/>
       <Route path='about' component={About}/>
-      <Route path='repos' component={Repos}/>
+      <Route path='repos' component={Repos}>
+        <Route path='details/:repo_name' component={RepoDetails} />
+      </Route>
     </Route>
   </Router>),
   document.getElementById('root')
