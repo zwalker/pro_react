@@ -44,7 +44,7 @@ ReactDom.render((
   <Router>
     <Route path='/' component={App}>
       <IndexRoute component={Home}/>
-      <Route path='about' component={About}/>
+      <Route path='about' component={About} title='About Us'/>
       <Route path='repos' component={Repos}>
         <Route path='details/:repo_name' component={RepoDetails} />
       </Route>
