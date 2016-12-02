@@ -15,7 +15,9 @@
     "webpack-dev-server": "~1.14.*"
   },
   "dependencies": {
+    "history": "^1.17.0",
     "react": "^15.3.2",
-    "react-dom": "^15.4.1"
+    "react-dom": "^15.4.1",
+    "react-router": "^1.0.3"
   }
 }
