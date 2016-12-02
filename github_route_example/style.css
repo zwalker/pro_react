@@ -34,3 +34,12 @@ menu {
   margin-bottom: 10px;
 }
 
+.server-error {
+  text-align: center;
+}
+
+.server-error_alert {
+  font-size: 80px;
+  font-weight: bold;
+  color: #e9ab2d;
+}
