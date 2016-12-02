@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ReactDom from 'react-dom';
 
 import { Router, Route, IndexRoute, Link } from 'react-router';
+import createBrowserHistory from 'history/lib/createBrowserHistory';
 
 import About from './about';
 import Home from './home';
@@ -42,7 +43,7 @@ class App extends Component {
 }
 
 ReactDom.render((
-  <Router>
+  <Router history={createBrowserHistory()}>
     <Route path='/' component={App}>
       <IndexRoute component={Home}/>
       <Route path='about' component={About} title='About Us'/>
