@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import List from './List';
+import { Link } from 'react-router';
 
 class KanbanBoard extends Component {
   render() {
@@ -11,6 +12,7 @@ class KanbanBoard extends Component {
     });
     return (
       <div className="app">
+        <Link to='/new' className="float-button">+</Link>
         <List id='todo' title='To Do' taskCallbacks={this.props.taskCallbacks} cards={
           this.props.cards.filter((card) => card.status === "todo")} cardCallbacks={
           this.props.cardCallbacks}  
