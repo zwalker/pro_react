@@ -5,24 +5,14 @@ import AirCheapAPI from '../api/air_cheap_api';
 let AirportActionCreators = {
 
   fetchAirports() {
-    AirCheapAPI.fetchAirports();
-    appDispatcher.dispatch({
-      type: constants.FETCH_AIRPORTS,
-    });
-  },
-
-  fetchAirportSuccess(response) {
-    appDispatcher.dispatch({
-      type: constants.FETCH_AIRPORTS_SUCCESS,
-      payload: {response}
-    });
-  },
-
-  fetchAirportError(error) {
-    appDispatcher.dispatch({
-      type: constants.FETCH_AIRPORTS_ERROR,
-      payload: {error}
-    });
+    appDispatcher.dispatchAsync(
+      AirCheapAPI.fetchAirports(),
+      {
+        request: constants.FETCH_AIRPORTS,
+        success: constants.FETCH_AIRPORTS_SUCCESS,
+        failure: constants.FETCH_AIRPORTS_ERROR
+      }
+    );
   },
 
   chooseAirport(target, code) {
@@ -33,26 +23,15 @@ let AirportActionCreators = {
     });
   },
 
-  fetchTickets() {
-    AirCheapAPI.fetchTickets();
-    appDispatcher.dispatch({
-      type: constants.FETCH_TICKETS,
-    });
-  },
-
-  fetchTicketsSuccess(response) {
-    appDispatcher.dispatch({
-      type: constants.FETCH_TICKETS_SUCCESS,
-      payload: {response}
-    });
-  },
-
-  fetchTicketsError(error) {
-    console.log('Error fething tickets', error);
-    appDispatcher.dispatch({
-      type: constants.FETCH_TICKETS_ERROR,
-      payload: {error}
-    });
+  fetchTickets(origin, destination) {
+    appDispatcher.dispatchAsync(
+      AirCheapAPI.fetchTickets(origin, destination),
+      {
+        request: constants.FETCH_TICKETS,
+        success: constants.FETCH_TICKETS_SUCCESS,
+        failure: constants.FETCH_TICKETS_ERROR
+      }
+    );
   }
 }
 
