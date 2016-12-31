@@ -1,2 +1,9 @@
 import { Dispatcher } from 'flux';
-export default new Dispatcher();
+class AppDispatcher extends Dispatcher {
+  dispatch(action = {}) {
+    console.log("Displatched", action);
+    super.dispatch(action);
+  }
+}
+
+export default new AppDispatcher();
