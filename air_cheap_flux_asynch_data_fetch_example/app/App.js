@@ -3,6 +3,7 @@ import {render} from 'react-dom';
 import { Container } from 'flux/utils';
 import Autosuggest from 'react-autosuggest-legacy';
 import AirportStore from './stores/airport_store';
+import RouteStore from './stores/route_store';
 import AirportActionCreators from './actions/airport_action_creators';
 
 class App extends Component {
@@ -30,7 +31,18 @@ class App extends Component {
     AirportActionCreators.fetchAirports();
   }
 
-  render(){
+  componentWillUpdate(nextProps, nextState) {
+    let originAndDestinationSelected = nextState.origin && nextState.destination;
+    let selectionHasChangedSinceLastUpdate = (
+      nextState.origin !== this.state.origin ||
+      nextState.destination !== this.state.destination
+    );
+
+    if(originAndDestinationSelected && selectionHasChangedSinceLastUpdate) {
+      AirportActionCreators.fetchTickets(nextState.origin, nextState.Destination);
+    }
+  }
+
     return (
       <div>
         <header>
@@ -54,9 +66,11 @@ class App extends Component {
   }
 }
 
-App.getStores = () => ([AirportStore]);
+App.getStores = () => ([AirportStore, RouteStore]);
 App.calculateState = (prevState) => ({
-  airports: AirportStore.getState()
+  airports: AirportStore.getState(),
+  origin: RouteStore.getState()['origin'],
+  destination: RouteStore.getState()['destination']
 });
 
 const AppContainer = Container.create(App);
