@@ -25,6 +25,14 @@ let AirportActionCreators = {
     });
   },
 
+  chooseAirport(target, code) {
+    appDispatcher.dispatch({
+      type: constants.CHOOSE_AIRPORT,
+      target,
+      code
+    });
+  },
+
   fetchTickets() {
     AirCheapAPI.fetchTickets();
     appDispatcher.dispatch({
