@@ -4,6 +4,8 @@ import { Container } from 'flux/utils';
 import Autosuggest from 'react-autosuggest-legacy';
 import AirportStore from './stores/airport_store';
 import RouteStore from './stores/route_store';
+import TicketStore from './stores/ticket_store';
+import TicketItem from './components/ticket_item';
 import AirportActionCreators from './actions/airport_action_creators';
 
 class App extends Component {
@@ -43,6 +45,11 @@ class App extends Component {
     }
   }
 
+  render() {
+    let ticketList = this.state.tickets.map((ticket) => (
+      <TicketItem key={ticket.id} ticket={ticket} />
+    ));
+
     return (
       <div>
         <header>
@@ -61,16 +68,20 @@ class App extends Component {
                          inputAttributes={{placeholder: 'To'}} />
           </div>
         </header>
+        <div>
+          {ticketList}
+        </div>
       </div>
     );
   }
 }
 
-App.getStores = () => ([AirportStore, RouteStore]);
+App.getStores = () => ([AirportStore, RouteStore, TicketStore]);
 App.calculateState = (prevState) => ({
   airports: AirportStore.getState(),
   origin: RouteStore.getState()['origin'],
-  destination: RouteStore.getState()['destination']
+  destination: RouteStore.getState()['destination'],
+  tickets: TicketStore.getState()
 });
 
 const AppContainer = Container.create(App);
