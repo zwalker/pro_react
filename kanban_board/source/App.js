@@ -3,10 +3,10 @@ import ReactDom from 'react-dom';
 import { Router, Route } from 'react-router'
 import createBrowserHistory from 'history/lib/createBrowserHistory';
 
-import KanbanBoardContainer from './kanban_board_container';
-import KanbanBoard from './KanbanBoard';
-import NewCard from './new_card';
-import EditCard from './edit_card';
+import KanbanBoardContainer from './components/kanban_board_container';
+import KanbanBoard from './components/KanbanBoard';
+import NewCard from './components/new_card';
+import EditCard from './components/edit_card';
 
 //let cardsList = [
 //  {

@@ -3,7 +3,7 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import CheckList from './checklist.js';
 import marked from 'marked';
 import { DragSource, DropTarget } from 'react-dnd';
-import constants from './constants';
+import constants from '../constants';
 import { Link } from 'react-router';
 
 let titlePropType = (props, propName, componentName) => {
