@@ -22,6 +22,17 @@ let KanbanApi = {
       }
     )
     .then((response) => response.json());
+  },
+
+  updateCard(card, draftCard) {
+    return fetch(`${API_URL}/cards/${card.id}`,
+      {
+        method: 'put',
+        headers: API_HEADERS,
+        body: JSON.stringify(draftCard)
+      }
+    )
+    .then((response) => response.json());
   }
 };
 

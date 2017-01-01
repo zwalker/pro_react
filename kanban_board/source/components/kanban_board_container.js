@@ -188,32 +188,6 @@ class KanbanBoardContainer extends Component {
     });
   }
 
-  updateCard(card) {
-    let prevState = this.state;
-    let cardIndex = this.state.cards.findIndex((c) => c.id == card.id);
-
-    let nextState = update(this.state.cards, {
-      [cardIndex]: { $set: card }
-    });
-    this.setState({cards: nextState});
-
-    fetch(`${API_URL}/cards/${card.id}`, {
-      method: 'put',
-      headers: API_HEADERS,
-      body: JSON.stringify(card)
-    })
-    .then((response) => {
-      if(!response.ok) {
-        throw new Error("Server response wasn't OK");
-      }
-    })
-    .catch((error) => {
-      console.error("Fetch error:", error);
-      this.setState(prevState);
-    });
-  }
-
-
   render() {
     let kanbanBoard = this.props.children && React.cloneElement(this.props.children, {
       cards: this.state.cards,
@@ -223,7 +197,6 @@ class KanbanBoardContainer extends Component {
         add: this.addTask.bind(this)
       },
       cardCallbacks: {
-        updateCard: this.updateCard.bind(this),
         updateStatus: this.updateCardStatus.bind(this),
         updatePosition: this.updateCardPosition.bind(this),
         persistCardDrag: this.persistCardDrag.bind(this)

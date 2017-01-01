@@ -6,5 +6,9 @@ export default {
 
   CREATE_CARD: 'create card',
   CREATE_CARD_SUCCESS: 'create card success',
-  CREATE_CARD_ERROR: 'create card error'
+  CREATE_CARD_ERROR: 'create card error',
+
+  UPDATE_CARD: 'update_card',
+  UPDATE_CARD_SUCCESS: 'update card success',
+  UPDATE_CARD_ERROR: 'update card error'
 };

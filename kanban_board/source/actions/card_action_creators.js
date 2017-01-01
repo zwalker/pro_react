@@ -17,6 +17,14 @@ let CardActionCreators = {
       success: constants.CREATE_CARD_SUCCESS,
       failure: constants.CREATE_CARD_ERROR
     }, {card});
+  },
+
+  updateCard(card, draftCard) {
+    AppDispatcher.dispatchAsync(KanbanApi.updateCard(card, draftCard), {
+      request: constants.UPDATE_CARD,
+      success: constants.UPDATE_CARD_SUCCESS,
+      failure: constants.UPDATE_CARD_ERROR
+    }, {card, draftCard});
   }
 };
 

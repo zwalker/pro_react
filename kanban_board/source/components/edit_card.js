@@ -1,10 +1,12 @@
 import React, { Component, PropTypes } from 'react'
 import CardForm from './card_form';
+import CardActionCreators from '../actions/card_action_creators';
+import CardStore from '../stores/card_store';
 
 class EditCard extends Component {
   
   componentWillMount() {
-    let card = this.props.cards.find((card) => card.id == this.props.params.card_id);
+    let card = CardStore.getCard(parseInt(this.props.params.card_id));
     this.setState(Object.assign({}, card));
   }
 
@@ -14,7 +16,8 @@ class EditCard extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    this.props.cardCallbacks.updateCard(this.state);
+    let card = CardStore.getCard(parseInt(this.props.params.card_id));
+    CardActionCreators.updateCard(card, this.state);
     this.props.history.pushState(null, '/');
   }
 
@@ -31,10 +34,6 @@ class EditCard extends Component {
                 handleClose={this.handleClose.bind(this)} />
     );
   }
-}
-
-EditCard.propTypes = {
-  cardCallbacks: PropTypes.object
 }
 
 export default EditCard;
