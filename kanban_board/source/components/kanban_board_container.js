@@ -188,36 +188,6 @@ class KanbanBoardContainer extends Component {
     });
   }
 
-  addCard(card) {
-    let prevState = this.state;
-    if(card.id === null) {
-      let card = Object.assign({}, card, {id: Date.now()});
-    }
-
-    let nextState = update(this.state.cards, { $push: [card] });
-    this.setState({cards: nextState});
-
-    fetch(`${API_URL}/cards`, {
-      method: 'post',
-      headers: API_HEADERS,
-      body: JSON.stringify(card)
-    })
-    .then((response) => {
-      if(response.ok) {
-        return response.json();
-      } else {
-        throw new Error("Server response wasn't OK");
-      }
-    })
-    .then((responseData) => {
-      card.id = responseData.id;
-      this.setState({cards: nextState});
-    })
-    .catch((error) => {
-      this.setState(prevState);
-    });
-  }
-
   updateCard(card) {
     let prevState = this.state;
     let cardIndex = this.state.cards.findIndex((c) => c.id == card.id);
@@ -253,7 +223,6 @@ class KanbanBoardContainer extends Component {
         add: this.addTask.bind(this)
       },
       cardCallbacks: {
-        addCard: this.addCard.bind(this),
         updateCard: this.updateCard.bind(this),
         updateStatus: this.updateCardStatus.bind(this),
         updatePosition: this.updateCardPosition.bind(this),

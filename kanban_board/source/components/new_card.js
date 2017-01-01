@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import CardForm from './card_form';
+import CardActionCreators from '../actions/card_action_creators';
 
 class NewCard extends Component {
   
@@ -20,7 +21,7 @@ class NewCard extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    this.props.cardCallbacks.addCard(this.state);
+    CardActionCreators.createCard(this.state);
     this.props.history.pushState(null, '/');
   }
 

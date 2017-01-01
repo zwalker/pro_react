@@ -9,6 +9,14 @@ let CardActionCreators = {
       success: constants.FETCH_CARDS_SUCCESS,
       failure: constants.FETCH_CARDS_ERROR
     });
+  },
+
+  createCard(card) {
+    AppDispatcher.dispatchAsync(KanbanApi.createCard(card), {
+      request: constants.CREATE_CARD,
+      success: constants.CREATE_CARD_SUCCESS,
+      failure: constants.CREATE_CARD_ERROR
+    }, {card});
   }
 };
 
