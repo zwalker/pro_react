@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import TestUtils from 'react-addons-test-utils';
+import ShallowTestUtils from 'react-shallow-testutils';
 import CheckboxWithLabel from '../checkbox_with_label';
 
 const shallowRenderer = TestUtils.createRenderer();
@@ -9,12 +10,14 @@ describe('CheckboxWithLabel', () => {
 
   shallowRenderer.render(<CheckboxWithLabel lanelOn="On" labelOff="Off" />);
   const checkbox = shallowRenderer.getRenderOutput();
+  const component = shallowRenderer.getMountedInstance();
 
   it('defaults to unchecker and Off label', () => {
-    const inputField = checkbox.props.children[0];
-    const textNode = checkbox.props.children[1];
-    expect(inputField.props.checked).toEqual(false);
-    expect(textNode).toEqual('Off');
+    const expectedChildren = [
+      <input type="checkbox" checked={false} onChange={component.onChange} />,
+      "Off"
+    ];
+    expect(checkbox.props.children).toEqual(expectedChildren);
   });
 
 
