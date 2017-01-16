@@ -8,8 +8,8 @@ const shallowRenderer = TestUtils.createRenderer();
 
 describe('CheckboxWithLabel', () => {
 
-  shallowRenderer.render(<CheckboxWithLabel lanelOn="On" labelOff="Off" />);
-  const checkbox = shallowRenderer.getRenderOutput();
+  shallowRenderer.render(<CheckboxWithLabel labelOn="On" labelOff="Off" />);
+  let checkbox = shallowRenderer.getRenderOutput();
   const component = shallowRenderer.getMountedInstance();
 
   it('defaults to unchecker and Off label', () => {
@@ -20,5 +20,14 @@ describe('CheckboxWithLabel', () => {
     expect(checkbox.props.children).toEqual(expectedChildren);
   });
 
+  it('changes the label after click', () => {
+    component.onChange();
+    checkbox = shallowRenderer.getRenderOutput();
+    expect(checkbox.props.children[1]).toEqual('On');
+
+    component.onChange();
+    checkbox = shallowRenderer.getRenderOutput();
+    expect(checkbox.props.children[1]).toEqual('Off');
+  });
 
 });
