@@ -25,6 +25,14 @@ let CardActionCreators = {
       success: constants.UPDATE_CARD_SUCCESS,
       failure: constants.UPDATE_CARD_ERROR
     }, {card, draftCard});
+  },
+
+  addTask(cardId, task) {
+    AppDispatcher.dispatchAsync(KanbanApi.addTask(cardId, task), {
+      request: constants.ADD_TASK,
+      success: constants.ADD_TASK_SUCCESS,
+      failure: constants.ADD_TASK_ERROR
+    }, {cardId, task});
   }
 };
 

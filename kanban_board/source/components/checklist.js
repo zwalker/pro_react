@@ -1,9 +1,11 @@
 import React, { Component, PropTypes } from 'react';
+import CardActionCreators from '../actions/card_action_creators'
 
 class CheckList extends Component {
   checkInputKeyPress(evt) {
     if(evt.key === 'Enter'){
-      this.props.taskCallbacks.add(this.props.cardId, evt.target.value);
+      let task = {id: Date.now(), name: evt.target.value, done: false}
+      CardActionCreators.addTask(this.props.cardId, task);
     }
   }
 

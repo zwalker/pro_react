@@ -29,42 +29,6 @@ class KanbanBoardContainer extends Component {
     CardActionCreators.fetchCards();
   } 
 
-  addTask(cardId, taskName){
-    let cardIndex = this.state.cards.findIndex((card) => card.id == cardId);
-    let newTask = { id: Date.now(), name: taskName, done: false };
-
-    let prevState = this.state.cards;
-    let nextState = update(this.state.cards, {
-      [cardIndex]: {
-        tasks: {$push: [newTask]}
-      }
-    });
-
-    this.setState({cards: nextState});
-
-    fetch(`${API_URL}/cards/${cardId}/tasks`, {
-      method: 'post',
-      headers: API_HEADERS,
-      body: JSON.stringify(newTask)
-    })
-    .then((response) => {
-      if(!response.ok) {
-        throw new Error("Server response wasn't OK");
-      }
-      else {
-        return response.json();
-      }
-    })
-    .then((responseData) => {
-      newTask.id = responseData.id;
-      this.setState({cards: nextState});
-    })
-    .catch((error) => {
-      console.error("Fetch Error:", error);
-      this.setState({cards: prevState});
-    });
-  }
-
   deleteTask(cardId, taskId, taskIndex){
     let cardIndex = this.state.cards.findIndex((card) => card.id == cardId);
 
@@ -193,8 +157,7 @@ class KanbanBoardContainer extends Component {
       cards: this.state.cards,
       taskCallbacks: {
         toggle: this.toggleTask.bind(this),
-        delete: this.deleteTask.bind(this),
-        add: this.addTask.bind(this)
+        delete: this.deleteTask.bind(this)
       },
       cardCallbacks: {
         updateStatus: this.updateCardStatus.bind(this),

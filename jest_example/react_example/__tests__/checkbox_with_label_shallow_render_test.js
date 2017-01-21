@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import TestUtils from 'react-addons-test-utils';
-import ShallowTestUtils from 'react-shallow-testutils';
 import CheckboxWithLabel from '../checkbox_with_label';
 
 const shallowRenderer = TestUtils.createRenderer();
