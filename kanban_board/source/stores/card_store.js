@@ -57,6 +57,29 @@ class CardStore extends ReduceStore {
         taskIndex = this.getTaskIndex(cardIndex, action.payload.task.id);
         return update(this.getState(), {[cardIndex]: {tasks: {$splice: [[taskIndex, 1]]}}});
 
+      case constants.TOGGLE_TASK:
+        cardIndex = this.getCardIndex(action.payload.cardId);
+        taskIndex = this.getTaskIndex(cardIndex, action.payload.taskId);
+        return update(this.getState(), {[cardIndex]: {tasks: {[taskIndex]: {done: {$set: action.payload.done}}}}});
+      case constants.TOGGLE_TASK_SUCCESS:
+        return this.getState();
+      case constants.TOGGLE_TASK_ERROR:
+        cardIndex = this.getCardIndex(action.payload.cardId);
+        taskIndex = this.getTaskIndex(cardIndex, action.payload.task.id);
+        return update(this.getState(), {[cardIndex]: {tasks: {[taskIndex]: {$set: {done: !action.payload.done}}}}});
+
+      case constants.DELETE_TASK:
+        cardIndex = this.getCardIndex(action.payload.cardId);
+        taskIndex = this.getTaskIndex(cardIndex, action.payload.task.id);
+        return update(this.getState(), {[cardIndex]: {tasks: {$splice: [[taskIndex, 1]]}}});
+      case constants.DELETE_TASK_SUCCESS:
+        return this.getState();
+      case constants.DELETE_TASK_ERROR:
+        cardIndex = this.getCardIndex(action.payload.cardId);
+        taskIndex = this.getTaskIndex(cardIndex, action.payload.taskId);
+        return update(this.getState(), {[cardIndex]: {tasks: {$push: [action.payload.task]}}});
+
+
       default:
         return state;
     }

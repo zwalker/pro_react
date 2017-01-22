@@ -33,6 +33,22 @@ let CardActionCreators = {
       success: constants.ADD_TASK_SUCCESS,
       failure: constants.ADD_TASK_ERROR
     }, {cardId, task});
+  },
+
+  deleteTask(cardId, task) {
+    AppDispatcher.dispatchAsync(KanbanApi.deleteTask(cardId, task), {
+      request: constants.DELETE_TASK,
+      success: constants.DELETE_TASK_SUCCESS,
+      failure: constants.DELETE_TASK_ERROR
+    }, {cardId, task});
+  },
+
+  toggleTask(cardId, taskId, done) {
+    AppDispatcher.dispatchAsync(KanbanApi.toggleTask(cardId, taskId, done), {
+      request: constants.TOGGLE_TASK,
+      success: constants.TOGGLE_TASK_SUCCESS,
+      failure: constants.TOGGLE_TASK_ERROR
+    }, {cardId, taskId, done});
   }
 };
 

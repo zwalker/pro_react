@@ -29,70 +29,6 @@ class KanbanBoardContainer extends Component {
     CardActionCreators.fetchCards();
   } 
 
-  deleteTask(cardId, taskId, taskIndex){
-    let cardIndex = this.state.cards.findIndex((card) => card.id == cardId);
-
-    // Create a new object without a task
-    let prevState = this.state.cards;
-    let nextState = update(this.state.cards, {
-      [cardIndex]: {
-        tasks: {$splice: [[taskIndex, 1]]}
-      }
-    });
-
-    // set the component state to the mutate state
-    this.setState({cards: nextState});
-
-    // Call the API to remove the task on the server
-    fetch(`${API_URL}/cards/${cardId}/tasks/${taskId}`, {
-      method: 'delete',
-      headers: API_HEADERS
-    })
-    .then((response) => {
-      if(!response.ok) {
-        throw new Error("Server response wasn't OK");
-      }
-    })
-    .catch((error) => {
-      console.error("Fetch Error:", error);
-      this.setState({cards: prevState});
-    });
-  }
-
-  toggleTask(cardId, taskId, taskIndex){
-    let cardIndex = this.state.cards.findIndex((card) => card.id == cardId);
-    let newDoneValue;
-    let prevState = this.state.cards;
-    let nextState = update(this.state.cards, {
-                            [cardIndex]: {
-                              tasks: {
-                                [taskIndex]: {
-                                  done: { $apply: (done) => {
-                                      newDoneValue = !done
-                                      return newDoneValue;
-                                    }
-                                  }
-                                }
-                              }
-                            }
-                         });
-    this.setState({cards: nextState});
-    fetch(`${API_URL}/cards/${cardId}/tasks/${taskId}`, {
-      method: 'put',
-      headers: API_HEADERS,
-      body: JSON.stringify({done: newDoneValue})
-    })
-    .then((response) => {
-      if(!response.ok) {
-        throw new Error("Server response wasn't OK");
-      }
-    })
-    .catch((error) => {
-      console.error("Fetch Error:", error);
-      this.setState({cards: prevState});
-    });
-  }
-
   updateCardStatus(cardId, listId) {
     let cardIndex = this.state.cards.findIndex((card) => card.id == cardId);
     let card = this.state.cards[cardIndex];
@@ -155,10 +91,6 @@ class KanbanBoardContainer extends Component {
   render() {
     let kanbanBoard = this.props.children && React.cloneElement(this.props.children, {
       cards: this.state.cards,
-      taskCallbacks: {
-        toggle: this.toggleTask.bind(this),
-        delete: this.deleteTask.bind(this)
-      },
       cardCallbacks: {
         updateStatus: this.updateCardStatus.bind(this),
         updatePosition: this.updateCardPosition.bind(this),

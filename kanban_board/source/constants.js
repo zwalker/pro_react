@@ -14,5 +14,13 @@ export default {
 
   ADD_TASK: 'add task',
   ADD_TASK_SUCCESS: 'add task success',
-  ADD_TASK_ERROR: 'add task error'
+  ADD_TASK_ERROR: 'add task error',
+
+  DELETE_TASK: 'delete task',
+  DELETE_TASK_SUCCESS: 'delete task success',
+  DELETE_TASK_ERROR: 'delete task error',
+
+  TOGGLE_TASK: 'toggle task',
+  TOGGLE_TASK_SUCCESS: 'toggle task success',
+  TOGGLE_TASK_ERROR: 'toggle task error'
 };

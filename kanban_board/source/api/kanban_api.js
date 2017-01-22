@@ -44,6 +44,26 @@ let KanbanApi = {
       }
     )
     .then((response) => response.json());
+  },
+
+  deleteTask(cardId, task) {
+    return fetch(`${API_URL}/cards/${cardId}/tasks/${task.id}`,
+      {
+        method: 'delete',
+        headers: API_HEADERS
+      }
+    )
+  },
+
+  toggleTask(cardId, taskId, done) {
+    return fetch(`${API_URL}/cards/${cardId}/tasks/${taskId}`,
+      {
+        method: 'put',
+        headers: API_HEADERS,
+        body: JSON.stringify({done})
+      }
+    )
+    .then((response) => response.json());
   }
 };
 

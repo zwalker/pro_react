@@ -13,12 +13,12 @@ class KanbanBoard extends Component {
     return (
       <div className="app">
         <Link to='/new' className="float-button">+</Link>
-        <List id='todo' title='To Do' taskCallbacks={this.props.taskCallbacks} cards={
+        <List id='todo' title='To Do' cards={
           this.props.cards.filter((card) => card.status === "todo")} cardCallbacks={
           this.props.cardCallbacks}  
         />
 
-        <List id='in-progress' title='In Progress' taskCallbacks={this.props.taskCallbacks} cards={
+        <List id='in-progress' title='In Progress' cards={
           this.props.cards.filter((card) => card.status === "in-progress")} cardCallbacks={
           this.props.cardCallbacks}
         />
@@ -35,7 +35,6 @@ class KanbanBoard extends Component {
 
 KanbanBoard.propTypes= {
   cards: PropTypes.arrayOf(PropTypes.object),
-  taskCallbacks: PropTypes.object,
   cardCallbacks: PropTypes.object
 };
 

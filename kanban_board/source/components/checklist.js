@@ -13,11 +13,11 @@ class CheckList extends Component {
     let tasks = this.props.tasks.map((task, taskIndex) => (
       <li key={task.id} className='checklist__task'>
         <input type='checkbox' defaultChecked={task.done} onChange={
-          this.props.taskCallbacks.toggle.bind(null, this.props.cardId, task.id, taskIndex)
+          CardActionCreators.toggleTask.bind(null, this.props.cardId, task.id, !task.done)
         } />
         {task.name}
         <a href='#' className='checklist__task--remove' onClick={
-          this.props.taskCallbacks.delete.bind(null, this.props.cardId, task.id, taskIndex)
+          CardActionCreators.deleteTask.bind(null, this.props.cardId, task)
         } />
       </li>
     ));
@@ -34,8 +34,7 @@ class CheckList extends Component {
 
 CheckList.propTypes = {
   cardId: PropTypes.number.isRequired,
-  tasks: PropTypes.arrayOf(PropTypes.object),
-  taskCallbacks: PropTypes.object
+  tasks: PropTypes.arrayOf(PropTypes.object)
 }
 
 export default CheckList;
