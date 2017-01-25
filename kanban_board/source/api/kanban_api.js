@@ -35,6 +35,17 @@ let KanbanApi = {
     .then((response) => response.json());
   },
 
+  persistCardDrag(cardId, status, row_order_position) {
+    return fetch(`${API_URL}/cards/${card.id}`,
+      {
+        method: 'put',
+        headers: API_HEADERS,
+        body: JSON.stringify({status, row_order_position})
+      }
+    )
+    .then((response) => response.json());
+  },
+
   addTask(cardId, task) {
     return fetch(`${API_URL}/cards/${cardId}/tasks`,
       {

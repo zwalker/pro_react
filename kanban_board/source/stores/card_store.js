@@ -23,6 +23,7 @@ class CardStore extends ReduceStore {
   reduce(state, action) {
     let cardIndex;
     let taskIndex;
+    let card;
     switch(action.type) {
       case constants.FETCH_CARDS_SUCCESS:
         return action.payload.response;
@@ -79,6 +80,22 @@ class CardStore extends ReduceStore {
         taskIndex = this.getTaskIndex(cardIndex, action.payload.taskId);
         return update(this.getState(), {[cardIndex]: {tasks: {$push: [action.payload.task]}}});
 
+      case constants.UPDATE_CARD_STATUS:
+        cardIndex = this.getCardIndex(action.payload.cardId);
+        return update(this.getState(), {[cardIndex]: {status: {$set: action.payload.status}}});
+
+      case constants.UPDATE_CARD_POSITION:
+        cardIndex = this.getCardIndex(action.payload.cardId);
+        let afterIndex = this.getCardIndex(action.payload.afterCardId);
+        card = this.getCard(action.payload.cardId);
+        return update(this.getState(), {$splice: [[cardIndex, 1], [afterIndex, 0, card]]}); 
+
+      case constants.PERSIST_CARD_DRAG:
+        card = this.getCard(action.payload.cardId);
+        return update(this.getState(), {[cardIndex]: {$set: action.payload.draftCard}});
+      case constants.PERSIST_CARD_DRAG_ERROR:
+        cardIndex = this.getCardIndex(action.payload.cardId);
+        return update(this.getState(), {[cardIndex]: {state: {$set: action.payload.status}}}); 
 
       default:
         return state;

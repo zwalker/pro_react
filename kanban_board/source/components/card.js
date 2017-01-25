@@ -5,6 +5,7 @@ import marked from 'marked';
 import { DragSource, DropTarget } from 'react-dnd';
 import constants from '../constants';
 import { Link } from 'react-router';
+import CardActionCreators from '../actions/card_action_creators';
 
 let titlePropType = (props, propName, componentName) => {
   if(props[propName]) {
@@ -26,14 +27,14 @@ const cardDragSpec = {
   },
 
   endDrag(props) {
-    props.cardCallbacks.persistCardDrag(props.id, props.status);
+    CardActionCreators.persistCardDrag(props.id, props.status);
   }
 }
 
 const cardDropSpec = {
   hover(props, monitor) {
     const draggedId = monitor.getItem().id;
-    props.cardCallbacks.updatePosition(draggedId, props.id);
+    CardActionCreators.updateCardPosition(draggedId, props.id);
   }
 }
 
@@ -98,7 +99,6 @@ Card.propTypes = {
   description: PropTypes.string.isRequired,
   tasks: PropTypes.arrayOf(PropTypes.object),
   color: PropTypes.string,
-  cardCallbacks: PropTypes.object,
   connectDragSource: PropTypes.func.isRequired,
   connectDropTarget: PropTypes.func.isRequired
 }

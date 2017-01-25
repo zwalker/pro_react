@@ -1,6 +1,8 @@
 import AppDispatcher from '../app_dispatcher';
 import constants from '../constants';
 import KanbanApi from '../api/kanban_api';
+import CardStore from '../stores/card_store';
+import { throttle } from  '../util';
 
 let CardActionCreators = {
   fetchCards() {
@@ -49,6 +51,24 @@ let CardActionCreators = {
       success: constants.TOGGLE_TASK_SUCCESS,
       failure: constants.TOGGLE_TASK_ERROR
     }, {cardId, taskId, done});
+  },
+
+  updateCardStatus: throttle((cardId, status) => {
+    AppDispatcher.dispatch(constants.UPDATE_CARD_STATUS, {cardId, status});
+  }),
+
+  updateCardPosition: throttle((cardId, afterCardId) => {
+    AppDispatcher.dispatch(constants.UPDATE_CARD_POSITION, {cardId, afterCardId});
+  }),
+
+  persistCardDrag(cardId, status) {
+    let card = CardStore.getCard(cardId);
+    let cardIndex = CardStore.getCardIndex(cardId);
+    AppDispatcher.dispatchAsync(KanbanApi.persistCardDrag(cardId, card.status, cardIndex), {
+      requeset: constants.PERSIST_CARD_DRAG,
+      success: constants.PERSIST_CARD_DRAG_SUCCESS,
+      failure: constants.PERSIST_CARD_DRAG_ERROR
+    }, {cardId, status});
   }
 };
 
